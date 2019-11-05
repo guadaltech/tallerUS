@@ -1,0 +1,18 @@
+<section>
+        <header>
+            <h1 class="text-secondary">Registrate!</h1>
+            <h2>Soluciones TIC de confianza</h2>
+        </header>
+        <form (ngSubmit)="OnSubmit(form)" #form="ngForm" class="gst-form">
+            <p><input type="text" placeholder="Nombre de usuario" name="username" ngModel class="form-control" /></p>
+            <p><input type="email" placeholder="Email" name="email" ngModel class="form-control" /></p>
+            <p><input type="password" placeholder="Contraseña" name="password" ngModel class="form-control" /></p>
+            <p><input type="password" placeholder="Repite la contraseña" [(ngModel)]="password" [ngModelOptions]="{standalone:true}" class="form-control" /></p>
+            <p class="form-inline">
+                <a [routerLink]="'/auth/login'">Ya tienes una cuenta?</a>
+            </p>
+            <p>
+                <input type="submit" value="Registrarse" class="btn btn-primary" />
+            </p>
+        </form>
+</section>

@@ -1,0 +1,80 @@
+section
+{
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    min-width: 45%;
+    padding: 10%;
+    text-align: center;
+}
+
+section > header > h1
+{
+   font-size: 1.3em;
+   font-weight: bold;
+}
+
+section > header > h2
+{
+    font-size: 0.8em;
+    color: #818A8F;
+}
+
+form
+{
+    margin: 2rem 0;
+}
+
+form p a
+{
+    font-size: 0.8em;
+}
+
+/* .gst-form input[type="email"], .gst-form input[type="password"], .gst-form input[type="text"]
+{
+    padding: 0.2em 0.5em 0.2em 2.5em;
+    background-color: transparent;
+    border: 0.1em solid #818A8F;
+    border-radius: 0.3em;
+    color: #818A8F;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 5px 0px;
+}
+
+.gst-form input[type="email"]::placeholder, .gst-form input[type="password"]::placeholder, .gst-form input[type="text"]::placeholder
+{
+    color: #818A8F;
+}
+
+.gst-form input[type="text"]
+{
+    background-image: url('/assets/img/favicon.png');
+}
+
+.gst-form input[type="email"]
+{
+    background-image: url('/assets/img/favicon.png');
+}
+
+.gst-form input[type="password"]
+{
+    background-image: url('/assets/img/favicon.png');
+} */
+
+:host .btn
+{
+    box-shadow: none;
+    transition: 0.3s ease-in;
+}
+
+:host .btn:hover
+{
+    transform: translateY(-10px);
+    transition: 0.3s ease-out;
+}
+
+.btn-outline-primary:hover
+{
+    background-color: transparent;
+}

@@ -1,0 +1,54 @@
+section
+{
+    position: absolute;
+    top: 15%;
+    right: 20%;
+    min-width: 45%;
+    padding: 10%;
+    text-align: center;
+}
+
+section > header > h1
+{
+   font-size: 1.3em;
+   font-weight: bold;
+}
+
+section > header > h2
+{
+    font-size: 0.8em;
+    color: #818A8F;
+}
+
+form
+{
+    margin: 2rem 0;
+}
+
+form p a
+{
+    font-size: 0.8em;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before
+{
+  border-color: #8884D5;
+  background-color: #8884D5;
+}
+
+:host .btn
+{
+    box-shadow: none;
+    transition: 0.3s ease-in;
+}
+
+:host .btn:hover
+{
+    transform: translateY(-10px);
+    transition: 0.3s ease-out;
+}
+
+.btn-outline-primary:hover
+{
+    background-color: transparent;
+}

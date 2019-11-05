@@ -1,0 +1,11 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongo": {
+    "url": "mongodb+srv://tallerus:tallerus@tallerus-fbz6n.mongodb.net/test?retryWrites=true&w=majority",
+    "name": "mongo",
+    "connector": "mongodb"
+  }
+}

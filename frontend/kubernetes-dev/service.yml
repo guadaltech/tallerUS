@@ -1,0 +1,24 @@
+#Versión de la API de kubernetes que tengáis desplegadas
+apiVersion: v1
+#Nombre del servicio que vayáis a desplegar en este caso un servicio
+kind: Service
+metadata:
+  #Nombre que va a llevar vuestro Servicio
+  name: tallerus-frontend
+  #Nombre del namespace al que lo váis a enlazar
+  namespace: tallerus
+spec:
+  #Aqui configuráis tantos puertos como necesitéis exponer
+  ports:
+  #Puerto externo de la aplicación al que va a ir enlazada tu aplicacion. Por ejemplo: https://tudominio.es/8080  
+  - port: 8080
+    #Puerto local que utiliza tu aplicación en el caso del SFTP aqui siempre habría que poner el 22 sino
+    #no reconocería el protocolo al que se está conectando 
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  type: ClusterIP
+  selector:
+    #Enlazar el servicio con el deployment que es el que despliega los pods
+    app: tallerus-frontend
+    

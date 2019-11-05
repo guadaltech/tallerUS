@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tallerus-api
+  namespace: tallerus
+  annotations:
+    certmanager.k8s.io/acme-challenge-type: http01
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - hosts:
+    - api-tallerus.guadaltech.xyz
+    secretName: api-tallerus-guadaltech-tls
+  rules:
+  - host: api-tallerus.guadaltech.xyz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: tallerus-api
+          servicePort: 8080

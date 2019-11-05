@@ -1,0 +1,43 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row" *ngIf="!employeApi.editar">
+      <div class="col-8">
+        <h5 class="d-inline pr-2 fw">EMPLEADOS</h5> <button type="button" class="btn btnForm btn-sm ml-3" (click)="crear()">Crear</button>
+
+      </div>
+      <div class="col-4">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" class="boxsearch" placeholder="Buscar...">
+        </mat-form-field>
+      </div>
+      <div class="col-12 mt-4">
+
+        <mat-table #table [dataSource]="dataSource"  matSort>
+          <div *ngFor="let column of columnNames">
+            <ng-container *ngIf="column.id!='actions'" matColumnDef="{{column.id}}">
+              <mat-header-cell *matHeaderCellDef mat-sort-header><b> {{column.value}} </b> </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element[column.id]}} </mat-cell>
+            </ng-container>
+
+            <ng-container *ngIf="column.id=='actions'" matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef class="text-center" fxFlex="200px"><b> Actions</b></mat-header-cell>
+              <mat-cell  *matCellDef="let element" fxFlex="200px">
+                 <div class="actionsColumn">
+                    <button type="button" class="btnForm btn btn-sm mr-2" (click)="edit(element)"> Edit </button>  
+                    <button type="button" class="btnDelete btn btn-sm ml-2" (click)="removeEmployee(element)"> Del </button> 
+                 </div>
+              </mat-cell>
+            </ng-container>
+          </div>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+      </div>
+    </div>
+    <div  *ngIf="employeApi.editar">
+        <app-employee-form [employee]="employee" [dataSource]="dataSource" (evento)="refresh($event)"></app-employee-form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tallerus-api
+  namespace: tallerus
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tallerus-api
+    spec:
+      containers:
+        - name: tallerus-api
+          image: gcr.io/guadaltech-193909/node-api-tallerus:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always

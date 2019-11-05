@@ -1,0 +1,78 @@
+variables:
+  GCP_PROJECT_ID: guadaltech-193909
+  IMAGE_NAME: ${CI_PROJECT_PATH_SLUG}/${CI_COMMIT_REF_SLUG}:${CI_COMMIT_REF_SLUG}_${CI_PROJECT_ID}.${CI_JOB_ID}
+  IMAGE_NAME_LATEST: ${CI_PROJECT_PATH_SLUG}/${CI_COMMIT_REF_SLUG}:latest
+stages:
+#  - quality
+  - build-and-push
+  - delete-pod
+# quality:
+#  stage: quality
+#  image: hiorgserver/gitlab-sonar-scanner
+#  variables:
+#    SONAR_URL: "http://sonar.guadaltech.xyz"
+#    SONAR_TOKEN: "3c930ee95a446312734de881c8e062fb2abb8a58"
+#    SONAR_PROJECT_KEY: "videoapp"
+#    SONAR_PROJECT_NAME: "videoapp"
+#    SONAR_GITLAB_COMMENT: "true"
+#    SONAR_PUBLISH: "true"
+#  script:
+#    - sonar-scanner -Dsonar.ws.timeout=9000 -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.projectName=$SONAR_PROJECT_NAME -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=. -Dsonar.exclusions=**/*.min.js -Dsonar.sourceEncoding=UTF-8
+#  only:
+#    - develop
+build-and-push:
+  image: docker
+  stage: build-and-push
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://localhost:2375
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    # Install CA certs, openssl to https downloads, python for gcloud sdk
+    - apk add --update make ca-certificates openssl python
+    - update-ca-certificates
+    # Write our GCP service account private key into a file
+    - echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-registry-key.json
+    # Download and install Google Cloud SDK
+    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
+    - google-cloud-sdk/bin/gcloud --quiet components update
+    - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=gcloud-registry-key.json
+    # Create our image. Expected to create an image 'image_id'
+#    - make pull
+    - make build
+    - make push
+  only:
+    - neverUsed
+
+delete-pod: 
+  stage: delete-pod
+  image:
+  services:
+    - docker:dind 
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://localhost:2375
+    DOCKER_TLS_CERTDIR: ""
+
+  script:
+    - apk update  && apk add --no-cache curl
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+    - mkdir -p $HOME/.kube
+    - apk add --update make ca-certificates openssl python
+    - update-ca-certificates
+    - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+    - echo $GCLOUD_SERVICE_KEY | base64 -d > ${HOME}/gcloud-registry-key.json
+    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true
+    - google-cloud-sdk/bin/gcloud --quiet components update
+    - google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=gcloud-registry-key.json  
+    - google-cloud-sdk/bin/gcloud container clusters get-credentials guadaltech-tools --zone europe-west1-b --project guadaltech-193909
+    - POD=$(kubectl get pod -n tallerus -o name | grep node-frontend-tallerus | sed "s/^.\{4\}//")
+    - kubectl delete pod -l app=tallerus-frontend -n tallerus
+
+only: 
+  - neverUsed

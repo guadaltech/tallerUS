@@ -1,0 +1,35 @@
+{
+  "name": "employee",
+  "plural": "employees",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "include": ["department"]
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "job": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "department":
+    {
+      "type": "belongsTo",
+      "model": "department"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,22 @@
+<section class="row p-4">
+  <header class="col-12 px-4">
+    <h1>¡Hola, {{ user.username }}!</h1>
+    <p>Personaliza tu perfil con tu nombre, tu foto o incluso un alias y date a conocer al resto de empleados de Guadaltech.</p>
+  </header>
+    <article class="col card shadow p-4">
+
+      <form (ngSubmit)="OnSubmit(form)" #form="ngForm">
+        <p><input type="text" placeholder="Nombre de usuario" name="username" [ngModel]="user.username"  class="form-control" /></p>
+        <p><input type="email" placeholder="Email" name="email" [(ngModel)]="user.email" class="form-control" /></p>
+        <p><input type="password" placeholder="Contraseña" name="password" ngModel class="form-control" /></p>
+        <p><input type="password" placeholder="Repite la contraseña" [(ngModel)]="password" [ngModelOptions]="{standalone:true}" class="form-control" /></p>
+        <p>
+          <input type="submit" value="Actualizar perfil" class="btn btn-primary" />
+        </p>
+      </form>
+    </article>
+
+    <article class="col-auto card shadow">
+
+    </article>
+</section>

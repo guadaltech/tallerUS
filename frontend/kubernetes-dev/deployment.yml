@@ -1,0 +1,29 @@
+#Versión de la API de kubernetes que tengáis desplegadas
+apiVersion: extensions/v1beta1
+#Nombre del servicio que vayáis a desplegar en este caso un deployment (despliegue)
+kind: Deployment
+metadata:
+  #Nombre que va a llevar vuestro deployment
+  name: tallerus-frontend
+  #Nombre del namespace al que lo váis a enlazar
+  namespace: tallerus
+#Parámetros de configuración de vuestro pod o pods  
+spec:
+  #Numero de pods que va a contener vuestra aplicación (con esto se gana HA, alta disponibilidad)
+  replicas: 1
+  template:
+    metadata:
+      #Etiquetas para que os sea más fácil realizar búsquedas
+      labels:
+        app: tallerus-frontend    
+    spec:
+      containers:
+        #Nombre del contenedor que va a ir dentro de vuestro POD por si tenéis varios poder diferenciarlos
+        - name: tallerus-frontend
+          #Imagen de la que va a ir enlazada vuestro proyecto
+          image: gcr.io/guadaltech-193909/node-frontend-tallerus:latest
+          #Puertos a los que se va a conectar tu aplicación
+          ports:
+            - containerPort: 8080
+          #Esto te permite sobreescribir la imagen si ya existe,   
+          imagePullPolicy: Always

@@ -1,0 +1,21 @@
+<section>
+        <header>
+            <h1 class="text-secondary">Iniciar sesión</h1>
+            <h2>Soluciones TIC de confianza</h2>
+        </header>
+        <form (ngSubmit)="OnSubmit(form)" #form="ngForm">
+            <p><input type="email" placeholder="Email" name="email" ngModel class="form-control" /></p>
+            <p><input type="password" placeholder="Contraseña" name="password" ngModel class="form-control" /></p>
+            <p class="text-left">
+                <a [routerLink]="'/auth/forgot-password'" class="float-right">Olvidé mi contraseña</a>
+                <span class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="field-recuerdame">
+                    <label class="custom-control-label" for="field-recuerdame">Recuérdame</label>
+                </span>
+            </p>
+            <p>
+                <input type="submit" value="Entrar" class="btn btn-primary" />
+                <input [routerLink]="'/auth/register'" type="button" value="Registrarse" class="btn btn-outline-primary" />
+            </p>
+        </form>
+</section>

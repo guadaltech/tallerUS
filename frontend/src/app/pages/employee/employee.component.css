@@ -1,0 +1,23 @@
+.btnForm{
+    background:#8884D5;
+    color:white;
+    border:1px solid #8884D5;
+}
+.btnDelete{
+    color:#8884D5;
+    background:#ffffff !important;
+    border:1px solid #8884D5;
+}
+.fw{
+    font-weight: 500;
+}
+.boxsearch{
+   /*  margin-left: 10rem; */
+}
+.customWidthClass{
+    flex: 0 0 75px;
+ }
+
+ .actionsColumn{
+     text-overflow: ellipsis;
+ }

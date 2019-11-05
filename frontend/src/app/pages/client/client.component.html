@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-8"></div>
+  <div class="col-4"></div>
+  <div class="col-12 mt-4">
+
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <div *ngFor="let column of columnNames">
+        <ng-container *ngIf="column.id!='actions'" matColumnDef="{{column.id}}">
+          <mat-header-cell *matHeaderCellDef mat-sort-header><b> {{column.value}} </b> </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column.id]}} </mat-cell>
+        </ng-container>
+
+        <ng-container *ngIf="column.id=='actions'" matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="text-center" fxFlex="200px"><b> Actions</b></mat-header-cell>
+        </ng-container>
+      </div>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </div>
+</div>

@@ -1,0 +1,35 @@
+#Versión de la API de kubernetes que tengáis desplegadas
+apiVersion: extensions/v1beta1
+#Nombre del servicio que vayáis a desplegar en este caso un ingress
+kind: Ingress
+metadata:
+  #Nombre que va a llevar vuestro ingress
+  name: tallerus-frontend
+  #Nombre del namespace al que lo váis a enlazar
+  namespace: tallerus
+  #Parametros de configuración para el balanceador y para cert-manager
+  annotations:
+    #Tipo de petición que hace a letsencrypt para que valide el certificado
+    certmanager.k8s.io/acme-challenge-type: http01
+    #Nombre del cluster issuer (fichero de configuración cert-manager)
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    #Nombre de tu balanceador
+    kubernetes.io/ingress.class: nginx
+    #Parámetro para que te cree los certificados SSL siempre
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  #Nombre del dominio de tu aplicación  
+  - hosts:
+    - frontend-tallerus.guadaltech.xyz
+    #Nombre del secret donde va a ir tu certificado SSL encriptado
+    secretName: frontend-tallerus-guadaltech-tls
+  rules:
+  #Nombre del dominio de tu aplicacion y servicio al que va a ir enlazado junto con su puerto.  
+  - host: frontend-tallerus.guadaltech.xyz
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: tallerus-frontend
+          servicePort: 8080
