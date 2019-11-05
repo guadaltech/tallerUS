@@ -71,4 +71,9 @@ export class ClientComponent implements OnInit
     this.dataSource.sort = this.sort;
   }
 
+  OnEmit()
+  {
+    this.getClients();
+  }
+
 }

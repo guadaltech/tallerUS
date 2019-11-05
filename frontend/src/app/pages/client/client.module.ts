@@ -5,6 +5,7 @@ import { ClientComponent } from './client.component';
 import { ClientApiService } from 'src/app/services/apis/client-api.service';
 import { MatButtonModule, MatInputModule, MatRippleModule, MatFormFieldModule, MatTooltipModule, MatSelectModule, MatPaginatorModule, MatTableModule, MatSortModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
+import { ClientFormComponent } from './client-form/client-form.component';
 
 const routes: Routes =
 [
@@ -29,7 +30,7 @@ const routes: Routes =
         MatSortModule,
         MatFormFieldModule,
     ],
-    declarations: [ClientComponent],
+    declarations: [ClientComponent, ClientFormComponent],
     exports: [ClientComponent],
     providers: [ClientApiService]
 })

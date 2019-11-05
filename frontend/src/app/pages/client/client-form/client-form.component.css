@@ -1,0 +1,10 @@
+h1
+{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.form-inline > input:first-of-type
+{
+    margin-right: 1em;
+}

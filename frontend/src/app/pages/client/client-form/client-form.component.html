@@ -1,0 +1,22 @@
+<section>
+  <header>
+    <h1>Añadir cliente</h1>
+  </header>
+  <article>
+    <form (ngSubmit)="OnSubmit(form)" #form="ngForm">
+      <p class="form-inline">
+        <input type="text" placeholder="Nombre" name="name" ngModel class="form-control" />
+        <input type="text" placeholder="Empresa" name="company" ngModel class="form-control" />
+      </p>
+      <p class="form-inline">
+        <input type="text" placeholder="NIF" name="nif" ngModel class="form-control" />
+        <input type="text" placeholder="Sector" name="sector" ngModel class="form-control" />
+      </p>
+      <p class="form-inline">
+        <input type="email" placeholder="Email" name="email" ngModel class="form-control" />
+        <input type="number" placeholder="Teléfono" name="phone" ngModel class="form-control" />
+      </p>
+      <p><input type="submit" value="Añadir" class="btn btn-primary" /></p>
+    </form>
+  </article>
+</section>

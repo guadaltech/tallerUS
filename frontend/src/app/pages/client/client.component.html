@@ -1,8 +1,9 @@
 <div class="row">
-  <div class="col-8"></div>
-  <div class="col-4"></div>
-  <div class="col-12 mt-4">
+  <div class="col-8 mt-4">
 
+    <header>
+      <h1>Clientes</h1>
+    </header>
     <mat-table #table [dataSource]="dataSource" matSort>
       <div *ngFor="let column of columnNames">
         <ng-container *ngIf="column.id!='actions'" matColumnDef="{{column.id}}">
@@ -19,5 +20,8 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
+  </div>
+  <div class="col-4">
+    <gst-client-form (emit)="OnEmit()"></gst-client-form>
   </div>
 </div>
